@@ -25,7 +25,6 @@ class ModelOptions:
     def parse(self):
         opt = self._parser.parse_args()
         os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_ids
-        opt.debug = opt.debug != 0
 
         args = vars(opt)
         print('\n------------ Options -------------')
