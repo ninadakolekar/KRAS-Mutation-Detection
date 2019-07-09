@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 import tensorflow as tf
-from tf.keras import regularizers
-from tf.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import ModelOptions
 from dataset import CellColonySequence
