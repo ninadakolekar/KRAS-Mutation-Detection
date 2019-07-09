@@ -29,7 +29,7 @@ class CellColonySequence(Sequence):
 
         self.path = path
         self.names = list(labels.keys())
-        self.labels = list(labels.items())
+        self.labels = list(labels.values())
         self.input_size = input_size
         self.batch_size = batch_size
 
