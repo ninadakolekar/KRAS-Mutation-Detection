@@ -16,7 +16,7 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
 def get_base_model(input_size):
-    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights='None')
+    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights=None)
 
 if __name__ == "__main__":
     
