@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-    history = model.fit_generator(train_gen,steps_per_epoch=ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()/args.batch_size),workers=4,use_multiprocessing=True,shuffle=True)
+    history = model.fit_generator(train_gen,steps_per_epoch=ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()/args.batch_size),workers=1,use_multiprocessing=False,shuffle=True)
 
     model.save(os.path.join(args.outdir,"model.h5"))
 
