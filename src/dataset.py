@@ -61,7 +61,5 @@ class CellColonySequence(Sequence):
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = np_utils.to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size],num_classes=2)
-
-        print(f"HEY: {np.array(batch_y).shape}")
-        
+                
         return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y))
