@@ -60,6 +60,8 @@ class CellColonySequence(Sequence):
     def __getitem__(self, idx):
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y = self.labels[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y = to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size])
+
+        print(f"HEY: {np.array(batch_y).shape}")
         
-        return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), to_categorical(np.array(batch_y)))
+        return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y))
