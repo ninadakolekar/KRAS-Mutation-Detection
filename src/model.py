@@ -36,7 +36,9 @@ if __name__ == "__main__":
     x = base_model.output
     x = Dropout(0.4)(x)
     predictions = Dense(2, activation='softmax')(x)
-    model = multi_gpu_model(Model(inputs=base_model.input, outputs=predictions),gpus=2)
+    
+    model = Model(inputs=base_model.input, outputs=predictions)
+    # model = multi_gpu_model(Model(inputs=base_model.input, outputs=predictions),gpus=2)
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
