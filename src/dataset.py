@@ -9,7 +9,7 @@ from PIL import Image
 from tensorflow.python.keras.utils.data_utils import Sequence
 
 from albumentations import (
-    Compose, HorizontalFlip,, HueSaturationValue,
+    Compose, HorizontalFlip, HueSaturationValue,
     RandomBrightness, RandomContrast, RandomGamma,
     ToFloat, RandomRotate90
 )
