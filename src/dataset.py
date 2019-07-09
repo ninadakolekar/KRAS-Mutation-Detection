@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 from PIL import Image
 
-from tensorflow.python.keras.utils.data_utils import Sequence
+from tensorflow.keras.utils.data_utils import Sequence
 
 from albumentations import (
     Compose, HorizontalFlip, HueSaturationValue,
@@ -61,4 +61,4 @@ class CellColonySequence(Sequence):
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = self.labels[idx * self.batch_size:(idx + 1) * self.batch_size]
         
-        return np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y)
+        return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y))

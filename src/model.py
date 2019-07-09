@@ -11,9 +11,9 @@ from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnP
 from options import ModelOptions
 from dataset import CellColonySequence
 
-from keras.models import Model
-from keras.layers import Dense, Dropout
-from keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.applications.inception_v3 import InceptionV3
 
 def get_base_model(input_size):
     return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2)
