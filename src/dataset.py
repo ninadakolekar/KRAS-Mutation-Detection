@@ -11,7 +11,7 @@ from tensorflow.python.keras.utils.data_utils import Sequence
 from albumentations import (
     Compose, HorizontalFlip, HueSaturationValue,
     RandomBrightness, RandomContrast, RandomGamma,
-    ToFloat, RandomRotate90
+    ToFloat, RandomRotate90, Resize
 )
 
 LABELS = ["kras",'others']
