@@ -31,6 +31,7 @@ class CellColonySequence(Sequence):
         self.names = list(labels.keys())
         self.labels = list(labels.items())
         self.input_size = input_size
+        self.batch_size = batch_size
 
         AUGMENTATIONS_TRAIN = Compose([
             HorizontalFlip(p=0.5),
