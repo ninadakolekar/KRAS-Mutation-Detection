@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 from PIL import Image
 
-from tensorflow.keras.utils.data_utils import Sequence
+from keras.utils.data_utils import Sequence
 
 from albumentations import (
     Compose, HorizontalFlip, HueSaturationValue,
