@@ -7,7 +7,7 @@ import cv2
 from PIL import Image
 
 from tensorflow.python.keras.utils.data_utils import Sequence
-from scikits.statsmodels.tools import categorical
+from keras.utils import np_utils
 
 from albumentations import (
     Compose, HorizontalFlip, HueSaturationValue,
@@ -60,7 +60,7 @@ class CellColonySequence(Sequence):
     def __getitem__(self, idx):
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
-        batch_y = categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size])
+        batch_y = np_utils.to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size],num_classes=2)
 
         print(f"HEY: {np.array(batch_y).shape}")
         
