@@ -4,7 +4,7 @@ import argparse
 from datetime import datetime
 
 
-class ModelOptions:
+class TrainingOptions:
     def __init__(self):
         parser = argparse.ArgumentParser(description='Classification of morphology in cancer cell-lines')
         parser.add_argument('--dataset-path', type=str, default='./dataset',  help='dataset path (default: ./dataset)')
@@ -33,7 +33,38 @@ class ModelOptions:
         os.mkdir(os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S")))
         opt.outdir = os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S"))
         os.mkdir(os.path.join(opt.outdir,"models"))
+
+        args = vars(opt)
+        print('\n------------ Options -------------')
+        for k, v in sorted(args.items()):
+            print('%s: %s' % (str(k), str(v)))
+        print('-------------- End ----------------\n')
+
+        return opt
+
+class ValidationOptions:
+    def __init__(self):
+        parser = argparse.ArgumentParser(description='Classification of morphology in cancer cell-lines')
+        parser.add_argument('--checkpoints-path', type=str, default='./checkpoints', help='Saved model file')
+        parser.add_argument('--val-path', type=str, default=None, help='Custom validation set')
+        parser.add_argument('--outdir', type=str, default=None, help='Output val directory')
+        parser.add_argument('--batch-size', type=int, default=64, metavar='N', help='input batch size for training (default: 64)')
+        parser.add_argument('--input-size', type=int, default=256, metavar='N', help='How far the centers of two consecutive patches are in the image (default: 256)')
+        parser.add_argument('--gpu-ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
+
+        self._parser = parser
+
+    def parse(self):
+        opt = self._parser.parse_args()
+        os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_ids
+
+        assert(os.path.exists(opt.outdir))
+        assert(os.path.isdir(opt.outdir))
         
+        os.mkdir(os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S")))
+        opt.outdir = os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S"))
+        os.mkdir(os.path.join(opt.outdir,"models"))
+
         args = vars(opt)
         print('\n------------ Options -------------')
         for k, v in sorted(args.items()):

@@ -8,7 +8,7 @@ from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
-from options import ModelOptions
+from options import TrainingOptions
 from dataset import CellColonySequence
 
 from tensorflow.keras.models import Model
@@ -25,7 +25,7 @@ def get_base_model(input_size):
 
 if __name__ == "__main__":
     
-    args = ModelOptions().parse()
+    args = TrainingOptions().parse()
 
     train_gen = CellColonySequence(os.path.join(args.dataset_path,"train"),args.input_size,args.batch_size,augmentations='train')
     val_gen = CellColonySequence(os.path.join(args.dataset_path,"valid"),args.input_size,args.batch_size,augmentations=None)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-    history = model.fit_generator(train_gen,steps_per_epoch=10*ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=2*ceil(val_gen.__len__()/args.batch_size),workers=1,use_multiprocessing=False,shuffle=True)
+    history = model.fit_generator(train_gen,steps_per_epoch=100*ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=10*ceil(val_gen.__len__()/args.batch_size),workers=1,use_multiprocessing=False,shuffle=True)
 
     model.save(os.path.join(args.outdir,"model.h5"))
 
