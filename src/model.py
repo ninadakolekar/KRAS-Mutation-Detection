@@ -33,9 +33,9 @@ if __name__ == "__main__":
     predictions = Dense(2, activation='softmax')(x)
     model = Model(inputs=base_model.input, outputs=predictions)
 
-    model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer=tf.keras.optimizers.Adam(lr=args.lr),metrics=['accuracy'])
+    model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-    history = model.fit_generator(train_gen,steps_per_epoch=ceil(train_gen.__len__()/args.batch_size),epochs=12,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()/args.batch_size),workers=4,use_multiprocessing=True,shuffle=True)
+    history = model.fit_generator(train_gen,steps_per_epoch=ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()/args.batch_size),workers=4,use_multiprocessing=True,shuffle=True)
 
     model.save(os.path.join(args.outdir,"model.h5"))
 
