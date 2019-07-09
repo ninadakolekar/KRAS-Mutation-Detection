@@ -14,7 +14,7 @@ from dataset import CellColonySequence
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
-from keras.utils import multi_gpu_model
+from tensorflow.keras.utils import multi_gpu_model
 from sklearn.metrics import roc_auc_score
 
 def auroc(y_true, y_pred):
