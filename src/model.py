@@ -15,6 +15,11 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
+from sklearn.metrics import roc_auc_score
+
+def auroc(y_true, y_pred):
+    return tf.py_func(roc_auc_score, (y_true, y_pred), tf.double)
+
 def get_base_model(input_size):
     return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights=None)
 
@@ -33,7 +38,7 @@ if __name__ == "__main__":
     predictions = Dense(2, activation='softmax')(x)
     model = Model(inputs=base_model.input, outputs=predictions)
 
-    model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
+    model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy',auroc])
 
     history = model.fit_generator(train_gen,steps_per_epoch=ceil(train_gen.__len__()/args.batch_size),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()/args.batch_size),workers=1,use_multiprocessing=False,shuffle=True)
 

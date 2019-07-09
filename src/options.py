@@ -1,6 +1,7 @@
 from __future__ import print_function
 import os
 import argparse
+from datetime import datetime
 
 
 class ModelOptions:
@@ -26,6 +27,13 @@ class ModelOptions:
         opt = self._parser.parse_args()
         os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_ids
 
+        assert(os.path.exists(opt.outdir))
+        assert(os.path.isdir(opt.outdir))
+        
+        os.mkdir(os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S")))
+        opt.outdir = os.path.join(opt.outdir,"s"+str(opt.input_size)+"_"+datetime.now().strftime("%Y%m%d-%H%M%S"))
+        os.mkdir(os.path.join(opt.outdir,"models"))
+        
         args = vars(opt)
         print('\n------------ Options -------------')
         for k, v in sorted(args.items()):
