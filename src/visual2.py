@@ -69,13 +69,19 @@ layer_name = 'global_average_pooling2d'
 intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
 intermediate_output = intermediate_layer_model.predict_generator(test_gen)
+out = np.argmax(model.predict_generator(test_gen),axis=1)
 
-np.savetxt("testgen_pred.tsv",intermediate_output,delimiter='\t')
+np.savetxt("testgen_int.tsv",intermediate_output,delimiter='\t')
+np.savetxt("testgen_pred.tsv",out,delimiter='\t')
 
+layer_name = 'global_average_pooling2d'
 intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
 intermediate_output = intermediate_layer_model.predict_generator(val_gen)
-np.savetxt("valgen_pred.tsv",intermediate_output,delimiter='\t')
+out = np.argmax(model.predict_generator(val_gen),axis=1)
+
+np.savetxt("val_gen_int.tsv",intermediate_output,delimiter='\t')
+np.savetxt("val_gen_pred.tsv",out,delimiter='\t')
 
 
 

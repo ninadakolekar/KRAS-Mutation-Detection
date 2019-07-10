@@ -34,7 +34,6 @@ class CellColonySequence(Sequence):
         
         labels = {name: index for index in range(len(LABELS)) for name in filenames(index)}
         l = list(labels.items())
-        random.shuffle(l)
         labels = dict(l)
 
         self.path = path
