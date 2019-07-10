@@ -22,7 +22,7 @@ x = Dense(32, activation='relu')(x)
 x = Dense(8, activation='relu')(x)
 out = Dense(2, activation='softmax')(x)
 
-model = Model(output=out,input=base_model.input)
+model = Model(outputs=out,inputs=base_model.input)
 
 model.load_weights(sys.argv[1])
 
