@@ -122,7 +122,9 @@ def gen(layer_name):
 
 for layer in model.layers:
     if 'conv' in layer.name:
+        print(layer.name)
         gen(layer.name)
+
 import pdb; pdb.set_trace()
 
 
