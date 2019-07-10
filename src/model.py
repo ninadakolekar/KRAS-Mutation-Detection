@@ -11,7 +11,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnP
 from options import TrainingOptions
 from dataset import CellColonySequence
 
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.utils import multi_gpu_model
 from tensorflow.keras.applications.inception_v3 import InceptionV3
@@ -32,11 +32,13 @@ if __name__ == "__main__":
 
     callbacks = [TensorBoard(log_dir=args.outdir),ModelCheckpoint(filepath=os.path.join(args.outdir,"models","weights.{epoch:02d}-{val_loss:.2f}.hdf5"),verbose=0,save_best_only=True),ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0.001)]
 
-    model = get_base_model(args.input_size)
+    # model = get_base_model(args.input_size)
+
+    # model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
+
+    model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-144144/ic_model.h5")
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
-
-    print(model.summary())
 
     history = model.fit_generator(train_gen,steps_per_epoch=10*ceil(train_gen.__len__()),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()),workers=1,use_multiprocessing=False,shuffle=True)
 
