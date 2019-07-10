@@ -24,7 +24,7 @@ out = Dense(2, activation='softmax')(x)
 
 model = Model(outputs=out,inputs=base_model.input)
 
-model.load_weights(sys.argv[1])
+model = load_model(sys.argv[1])
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
