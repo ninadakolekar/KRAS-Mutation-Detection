@@ -23,7 +23,7 @@ class CellColonySequence(Sequence):
 
         random.seed(42)
 
-        def filenames(index)
+        def filenames(index):
             if mode == 'valtest':
                 filenames = list(glob.glob(path + '/valid/' + LABELS[index] + '/*.JPG'))+list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
             else:
