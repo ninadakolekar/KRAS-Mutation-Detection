@@ -123,7 +123,11 @@ def gen(layer_name):
 for layer in model.layers:
     if 'conv' in layer.name:
         print(layer.name)
-        gen(layer.name)
+        try:
+            gen(layer.name)
+        except:
+            print(f"Error in {layer.name}")
+            pass
 
 import pdb; pdb.set_trace()
 
