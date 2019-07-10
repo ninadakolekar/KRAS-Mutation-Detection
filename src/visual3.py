@@ -11,7 +11,7 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import TrainingOptions
-from dataset import CellColonySequence
+from dataset import CellColonyTestSequence
 
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Dense, Dropout
@@ -34,7 +34,7 @@ model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
 print("=== TEST ===")
-test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras_newdata",512,1,augmentations=None)
+test_gen = CellColonyTestSequence("/home/nitish/Desktop/ninad/kras_newdata",512,1,augmentations=None)
 print(model.evaluate_generator(test_gen))
 
 predictions = model.predict_generator(test_gen).argmax(axis=1)
