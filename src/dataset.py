@@ -19,7 +19,7 @@ LABELS = ["kras",'others']
 
 class CellColonySequence(Sequence):
 
-    def __init__(self, path, input_size, batch_size, augmentations,mode=None):
+    def __init__(self, path, input_size, batch_size, augmentations,mode='train'):
 
         random.seed(42)
         
