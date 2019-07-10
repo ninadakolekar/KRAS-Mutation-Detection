@@ -39,8 +39,8 @@ complete_model = model
 
 layer_outputs = outputs = [layer.output for layer in model.layers][1:]
 
-img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data4/test/kras"))
-test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test/kras",img_path)
+img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data4/test/others"))
+test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test/others",img_path)
 
 print(f"Name: {test_image}")
 
