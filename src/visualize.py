@@ -51,7 +51,7 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 # del val_gen
 
 # print("=== TEST ===")
-test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
+# test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
 # print(model.evaluate_generator(test_gen))
 
 # predictions = model.predict_generator(test_gen).argmax(axis=1)
@@ -60,6 +60,10 @@ test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",
 
 # del test_gen
 
+print(isinstance(model.layers[3],Model))
+import pdb; pdb.set_trace()
+
+test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
 new_model = Model(inputs=model.input,outputs=model.layers[3].output)
 preds = new_model.predict_generator(test_gen)
 print(f"Shape: {preds.shape}")
