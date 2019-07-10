@@ -50,7 +50,7 @@ class CellColonySequence(Sequence):
             HueSaturationValue(hue_shift_limit=5, sat_shift_limit=20,
                             val_shift_limit=10, p=.9),
             RandomRotate90(),
-            RandomSizedCrop(min_max_height=((512,1024)),height=input_size,width=input_size,p=0.3),
+            RandomSizedCrop(min_max_height=((512,1024)),height=input_size,width=input_size,p=0.5),
             Resize(input_size,input_size),
             ToFloat(max_value=255)
         ])
