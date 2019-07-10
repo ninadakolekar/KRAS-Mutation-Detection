@@ -28,6 +28,8 @@ class CellColonySequence(Sequence):
                 filenames = list(glob.glob(path + '/valid/' + LABELS[index] + '/*.JPG'))+list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
             else:
                 filenames = list(glob.glob(path + '/' + LABELS[index] + '/*.JPG'))
+            
+            return filenames
 
         
         labels = {name: index for index in range(len(LABELS)) for name in filenames(index)}
