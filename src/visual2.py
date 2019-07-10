@@ -70,7 +70,7 @@ intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
 intermediate_output = intermediate_layer_model.predict_generator(test_gen)
 
-intermediate_output.savetxt("testgen_pred.tsv",delimiter='\t')
+np.savetxt(intermediate_output,"testgen_pred.tsv",delimiter='\t')
 
 
 
