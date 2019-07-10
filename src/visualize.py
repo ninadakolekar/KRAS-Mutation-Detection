@@ -33,8 +33,6 @@ model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-print(f"Metrics: {model.metrics_names}")
-
 # print("=== TRAIN ===")
 # train_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/train",512,1,augmentations=None)
 # print(model.evaluate_generator(train_gen))
@@ -109,7 +107,9 @@ margin = 5
 results = np.zeros((8 * size + 7 * margin, 8 * size + 7 * margin, 3))
 
 for i in range(8):
+    print(f"i{i}")
     for j in range(8):
+        print(f"j{j}")
         filter_img = generate_pattern(layer_name, i + (j * 8), size=size)
         horizontal_start = i * size + i * margin
         horizontal_end = horizontal_start + size
@@ -117,8 +117,8 @@ for i in range(8):
         vertical_end = vertical_start + size
         results[horizontal_start: horizontal_end, vertical_start: vertical_end, :] = filter_img
         
-plt.figure(figsize=(20, 20))
-plt.savefig(results)
+img = Image.fromarray(data, 'RGB')
+img.save('my.png')
 
 
 
