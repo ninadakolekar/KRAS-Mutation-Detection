@@ -1,5 +1,6 @@
 import os
 import sys
+import random
 from math import ceil
 
 import numpy as np
@@ -16,6 +17,8 @@ from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.preprocessing import image
+
+random.seed(42)
 
 base_model = InceptionV3(include_top=False, input_shape=(512,512,3), pooling='avg', classes=2)
 x = base_model.output
