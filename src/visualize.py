@@ -117,8 +117,9 @@ for i in range(8):
         vertical_end = vertical_start + size
         results[horizontal_start: horizontal_end, vertical_start: vertical_end, :] = filter_img
         
-img = Image.fromarray(data, 'RGB')
+img = Image.fromarray(results, 'RGB')
 img.save('my.png')
+import pdb; pdb.set_trace()
 
 
 
