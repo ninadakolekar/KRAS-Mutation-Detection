@@ -33,14 +33,9 @@ if __name__ == "__main__":
     callbacks = [TensorBoard(log_dir=args.outdir),ModelCheckpoint(filepath=os.path.join(args.outdir,"models","weights.{epoch:02d}-{val_loss:.2f}.hdf5"),verbose=0,save_best_only=True),ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0.001)]
 
     base_model = get_base_model(args.input_size)
-    x = base_model.output
-    # x = Dropout(0.4)(x)
-    x = Dense(32, activation='relu')(x)
-    x = Dense(8, activation='relu')(x)
-    predictions = Dense(2, activation='softmax')(x)
     
     # model = Model(inputs=base_model.input, outputs=predictions)
-    model = multi_gpu_model(Model(inputs=base_model.input, outputs=predictions),gpus=2)
+    model = multi_gpu_model(base_model,gpus=2)
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
