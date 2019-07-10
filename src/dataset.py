@@ -55,8 +55,7 @@ class CellColonySequence(Sequence):
         ])
 
         AUGMENTATIONS_TEST = Compose([
-            # Resize(input_size,input_size),
-            RandomSizedCrop(min_max_height=((512,1024)),height=input_size,width=input_size,p=1),
+            Resize(input_size,input_size),
             ToFloat(max_value=255)
         ])
 

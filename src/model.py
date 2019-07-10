@@ -40,31 +40,31 @@ if __name__ == "__main__":
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-    # history = model.fit_generator(train_gen,steps_per_epoch=10*ceil(train_gen.__len__()),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()),workers=1,use_multiprocessing=False,shuffle=True)
+    history = model.fit_generator(train_gen,steps_per_epoch=10*ceil(train_gen.__len__()),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()),workers=1,use_multiprocessing=False,shuffle=True)
 
-    # model.save(os.path.join(args.outdir,"model.h5"))
+    model.save(os.path.join(args.outdir,"model.h5"))
 
-    # # Accuracy Curve
+    # Accuracy Curve
 
-    # plt.plot(history.history['acc'],label='train')
-    # plt.plot(history.history['val_acc'],label='val')
-    # plt.title('InceptionV3 Accuracy')
-    # plt.ylabel('accuracy')
-    # plt.xlabel('epoch')
-    # plt.legend(loc='upper left')
-    # plt.savefig(os.path.join(args.outdir,"acc.png"))
+    plt.plot(history.history['acc'],label='train')
+    plt.plot(history.history['val_acc'],label='val')
+    plt.title('InceptionV3 Accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(loc='upper left')
+    plt.savefig(os.path.join(args.outdir,"acc.png"))
 
-    # plt.close()
+    plt.close()
 
-    # # Loss Curve
+    # Loss Curve
 
-    # plt.plot(history.history['loss'],label='train')
-    # plt.plot(history.history['val_loss'],label='val')
-    # plt.title('InceptionV3 Loss')
-    # plt.ylabel('loss')
-    # plt.xlabel('epoch')
-    # plt.legend(loc='upper left')
-    # plt.savefig(os.path.join(args.outdir,"loss.png"))
+    plt.plot(history.history['loss'],label='train')
+    plt.plot(history.history['val_loss'],label='val')
+    plt.title('InceptionV3 Loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(loc='upper left')
+    plt.savefig(os.path.join(args.outdir,"loss.png"))
 
     print("=== VALIDATION ===")
     val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
