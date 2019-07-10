@@ -37,7 +37,8 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 
 complete_model = model
 
-layer_outputs = [layer.output for layer in complete_model.layers[:50]]
+layer_outputs = outputs = [layer.output for layer in model.layers if
+               layer.name == layer_name or layer_name is None][1:]
 
 img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data4/test/kras"))
 test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test/kras",img_path)
