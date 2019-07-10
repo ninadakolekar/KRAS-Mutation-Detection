@@ -19,11 +19,18 @@ LABELS = ["kras",'others']
 
 class CellColonySequence(Sequence):
 
-    def __init__(self, path, input_size, batch_size, augmentations):
+    def __init__(self, path, input_size, batch_size, augmentations,mode='train'):
 
         random.seed(42)
+
+        def filenames(index)
+            if mode == 'valtest':
+                filenames = list(glob.glob(path + '/valid/' + LABELS[index] + '/*.JPG'))+list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
+            else:
+                filenames = list(glob.glob(path + '/' + LABELS[index] + '/*.JPG'))
+
         
-        labels = {name: index for index in range(len(LABELS)) for name in glob.glob(path + '/' + LABELS[index] + '/*.JPG')}
+        labels = {name: index for index in range(len(LABELS)) for name in filenames(index)}
         l = list(labels.items())
         random.shuffle(l)
         labels = dict(l)

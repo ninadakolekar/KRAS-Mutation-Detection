@@ -21,14 +21,14 @@ from tensorflow.keras.applications.resnet50 import ResNet50
 from sklearn.metrics import roc_auc_score
 
 def get_base_model(input_size):
-    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights='imagenet')
+    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2)
 
 if __name__ == "__main__":
     
     args = TrainingOptions().parse()
 
     train_gen = CellColonySequence(os.path.join(args.dataset_path,"train"),args.input_size,args.batch_size,augmentations='train')
-    val_gen = CellColonySequence(os.path.join(args.dataset_path,"valid"),args.input_size,args.batch_size,augmentations=None)
+    val_gen = CellColonySequence(os.path.join(args.dataset_path),args.input_size,args.batch_size,augmentations=None,mode='valtest')
 
     callbacks = [TensorBoard(log_dir=args.outdir),ModelCheckpoint(filepath=os.path.join(args.outdir,"models","weights.{epoch:02d}-{val_loss:.2f}.hdf5"),verbose=0,save_best_only=True),ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0.001)]
 
@@ -58,6 +58,8 @@ if __name__ == "__main__":
     plt.legend(loc='upper left')
     plt.savefig(os.path.join(args.outdir,"acc.png"))
 
+    plt.close()
+
     # Loss Curve
 
     plt.plot(history.history['loss'],label='train')
@@ -67,6 +69,3 @@ if __name__ == "__main__":
     plt.xlabel('epoch')
     plt.legend(loc='upper left')
     plt.savefig(os.path.join(args.outdir,"loss.png"))
-
-    # test_gen = CellColonySequence(os.path.join(args.dataset_path,"valid"),args.input_size,args.batch_size,augmentations=None)
-    # model.evaluate_generator(test_gen)
