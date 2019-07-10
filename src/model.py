@@ -6,17 +6,17 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 import tensorflow as tf
-from keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import TrainingOptions
 from dataset import CellColonySequence
 
-from keras.models import Model
-from keras.layers import Dense, Dropout
-from keras.utils import multi_gpu_model
-from keras.applications.inception_v3 import InceptionV3
-from keras.applications.vgg16 import VGG16
-from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.applications.resnet50 import ResNet50
 
 from sklearn.metrics import roc_auc_score
 
@@ -43,6 +43,8 @@ if __name__ == "__main__":
     model = multi_gpu_model(Model(inputs=base_model.input, outputs=predictions),gpus=2)
 
     model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
+
+    print(model.summary())
 
     history = model.fit_generator(train_gen,steps_per_epoch=10*ceil(train_gen.__len__()),epochs=args.epochs,callbacks=callbacks,validation_data=val_gen,validation_steps=ceil(val_gen.__len__()),workers=1,use_multiprocessing=False,shuffle=True)
 
