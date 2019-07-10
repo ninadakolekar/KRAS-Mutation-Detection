@@ -38,7 +38,7 @@ layer_outputs = [layer.output for layer in classifier.layers[:50]]
 activation_model = Model(inputs=classifier.input, outputs=layer_outputs) # Creates a model that will return these outputs, given the model input
 
 img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data4/test/kras"))
-img_path = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test",img_path)
+img_path = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test/kras",img_path)
 
 img = image.load_img(img_path, target_size=(512,512,3))
 img_tensor = image.img_to_array(img)
