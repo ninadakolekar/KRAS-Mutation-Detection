@@ -13,12 +13,15 @@ from dataset import CellColonySequence
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.applications.resnet50 import ResNet50
+
 from sklearn.metrics import roc_auc_score
 
 def get_base_model(input_size):
-    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights=None)
+    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2,weights='imagenet')
 
 if __name__ == "__main__":
     
