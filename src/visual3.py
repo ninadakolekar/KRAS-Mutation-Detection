@@ -49,11 +49,10 @@ img_tensor = image.img_to_array(img)
 img_tensor = np.expand_dims(img_tensor, axis=0)
 img_tensor /= 255.
 
-print(model.summary())
-exit(0)
-
 activation_model = Model(inputs=complete_model.input, outputs=layer_outputs)
 activations = activation_model.predict(img_tensor)
+
+print("computed activations")
 
 layer_names = ['conv2d_1', 'activation_1', 'conv2d_4', 'activation_4', 'conv2d_9', 'activation_9']
 activ_list = [activations[1], activations[3], activations[11], activations[13], activations[18], activations[20]]
