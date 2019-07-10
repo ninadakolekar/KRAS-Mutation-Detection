@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     base_model = get_base_model(args.input_size)
     x = base_model.output
-    x = Dropout(0.4)(x)
+    # x = Dropout(0.4)(x)
     x = Dense(32, activation='relu')(x)
     x = Dense(8, activation='relu')(x)
     predictions = Dense(2, activation='softmax')(x)
