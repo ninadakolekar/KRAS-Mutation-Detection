@@ -12,7 +12,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnP
 from options import TrainingOptions
 from dataset import CellColonySequence
 
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
