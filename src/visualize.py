@@ -35,7 +35,7 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 old_model = model.layers[-2]   #get single GPU model weights
 # it's necessary to save the model before use this single GPU model
 print(old_model.summary())
-old_model.save("~/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-144144/ic_model.h5")  
+old_model.save("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-144144/ic_model.h5")  
 
 
 # print(f"Metrics: {model.metrics_names}")
