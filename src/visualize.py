@@ -101,24 +101,28 @@ def generate_pattern(layer_name, filter_index, size=150):
     img = input_img_data[0]
     return deprocess_image(img)
 
-layer_name = 'conv2d_4'
-size = 512
-margin = 5
-results = np.zeros((8 * size + 7 * margin, 8 * size + 7 * margin, 3))
+def gen(layer_name):
+    size = 512
+    margin = 5
+    results = np.zeros((8 * size + 7 * margin, 8 * size + 7 * margin, 3))
 
-for i in range(8):
-    print(f"i{i}")
-    for j in range(8):
-        print(f"j{j}")
-        filter_img = generate_pattern(layer_name, i + (j * 8), size=size)
-        horizontal_start = i * size + i * margin
-        horizontal_end = horizontal_start + size
-        vertical_start = j * size + j * margin
-        vertical_end = vertical_start + size
-        results[horizontal_start: horizontal_end, vertical_start: vertical_end, :] = filter_img
-        
-img = Image.fromarray(results, 'RGB')
-img.save('my.png')
+    for i in range(8):
+        print(f"i{i}")
+        for j in range(8):
+            print(f"j{j}")
+            filter_img = generate_pattern(layer_name, i + (j * 8), size=size)
+            horizontal_start = i * size + i * margin
+            horizontal_end = horizontal_start + size
+            vertical_start = j * size + j * margin
+            vertical_end = vertical_start + size
+            results[horizontal_start: horizontal_end, vertical_start: vertical_end, :] = filter_img
+            
+    img = Image.fromarray(results, 'RGB')
+    img.save(f'{layer_name}.png')
+
+for layer in model.layers:
+    if 'conv' in layer.name:
+        gen(layer.name)
 import pdb; pdb.set_trace()
 
 
