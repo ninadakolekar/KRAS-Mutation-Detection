@@ -44,7 +44,7 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 # del train_gen
 
 # print("=== VALIDATION ===")
-# val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
+val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
 # print(model.evaluate_generator(val_gen))
 
 # predictions = model.predict_generator(val_gen).argmax(axis=1)
@@ -70,7 +70,12 @@ intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
 intermediate_output = intermediate_layer_model.predict_generator(test_gen)
 
-np.savetxt(intermediate_output,"testgen_pred.tsv",delimiter='\t')
+np.savetxt("testgen_pred.tsv",intermediate_output,delimiter='\t')
+
+intermediate_layer_model = Model(inputs=model.input,
+                                 outputs=model.get_layer(layer_name).output)
+intermediate_output = intermediate_layer_model.predict_generator(val_gen)
+np.savetxt("valgen_pred.tsv",intermediate_output,delimiter='\t')
 
 
 
