@@ -12,7 +12,7 @@ from keras.utils import np_utils
 from albumentations import (
     Compose, HorizontalFlip, HueSaturationValue,
     RandomBrightness, RandomContrast, RandomGamma,
-    ToFloat, RandomRotate90, Resize
+    ToFloat, RandomRotate90, RandomSizedCrop, Resize
 )
 
 LABELS = ["kras",'others']
@@ -50,7 +50,7 @@ class CellColonySequence(Sequence):
             HueSaturationValue(hue_shift_limit=5, sat_shift_limit=20,
                             val_shift_limit=10, p=.9),
             RandomRotate90(),
-            Resize(input_size,input_size),
+            RandomSizedCrop(height=input_size,width=input_size),
             ToFloat(max_value=255)
         ])
 
