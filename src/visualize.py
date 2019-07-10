@@ -3,17 +3,18 @@ import sys
 from math import ceil
 
 import numpy as np
+import matplotlib.pyplot as plt
 from PIL import Image
 
 import tensorflow as tf
-from keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import TrainingOptions
 from dataset import CellColonySequence
 
-from keras.models import Model
-from keras.layers import Dense, Dropout
-from keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.applications.inception_v3 import InceptionV3
 
 base_model = InceptionV3(include_top=False, input_shape=(512,512,3), pooling='avg', classes=2)
 x = base_model.output
