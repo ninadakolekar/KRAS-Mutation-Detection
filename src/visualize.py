@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 
 import tensorflow as tf
-from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import TrainingOptions
 from dataset import CellColonySequence

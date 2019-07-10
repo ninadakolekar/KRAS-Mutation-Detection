@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 from PIL import Image
 
-from tensorflow.python.keras.utils.data_utils import Sequence
+from keras.utils import Sequence
 from keras.utils import np_utils
 
 from albumentations import (

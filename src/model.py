@@ -6,17 +6,17 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 import tensorflow as tf
-from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 
 from options import TrainingOptions
 from dataset import CellColonySequence
 
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.utils import multi_gpu_model
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras.applications.vgg16 import VGG16
-from tensorflow.keras.applications.resnet50 import ResNet50
+from keras.models import Model
+from keras.layers import Dense, Dropout
+from keras.utils import multi_gpu_model
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.vgg16 import VGG16
+from keras.applications.resnet50 import ResNet50
 
 from sklearn.metrics import roc_auc_score
 
