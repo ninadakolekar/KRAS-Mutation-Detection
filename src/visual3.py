@@ -21,6 +21,8 @@ import tensorflow.keras.backend as K
 
 random.seed(42)
 
+NUM_LAYERS = int(sys.argv[1])
+
 base_model = InceptionV3(include_top=False, input_shape=(512,512,3), pooling='avg', classes=2)
 x = base_model.output
 x = Dense(32, activation='relu')(x)
@@ -33,7 +35,7 @@ model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 classifier = model
-layer_outputs = [layer.output for layer in classifier.layers[:50]] 
+layer_outputs = [layer.output for layer in classifier.layers[:NUM_LAYERS]] 
 # Extracts the outputs of the top 12 layers
 activation_model = Model(inputs=classifier.input, outputs=layer_outputs) # Creates a model that will return these outputs, given the model input
 
@@ -47,7 +49,7 @@ img_tensor /= 255.
 images_per_row = 16
 
 layer_names = []
-for layer in classifier.layers[:50]:
+for layer in classifier.layers[:NUM_LAYERS]:
     layer_names.append(layer.name) # Names of the layers, so you can have them as part of your plot
 
 activations = activation_model.predict(img_tensor)
