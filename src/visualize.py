@@ -64,7 +64,7 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 complete_model = model.layers[3]
 
 layer_outputs = [layer.output for layer in complete_model.layers[:50]]
-test_image = 'any test image'
+test_image = random.choice([file for file in os.listdir('/home/nitish/Desktop/ninad/kras/data/data4/test/kras/') if file.endswith('.JPG')])
 
 img = image.load_img(test_image, target_size=(512,512))
 img_tensor = image.img_to_array(img)
