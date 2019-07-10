@@ -71,3 +71,11 @@ if __name__ == "__main__":
     plt.xlabel('epoch')
     plt.legend(loc='upper left')
     plt.savefig(os.path.join(args.outdir,"loss.png"))
+
+    print("=== VALIDATION ===")
+    val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
+    print(model.evaluate_generator(val_gen))
+
+    print("=== TEST ===")
+    test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
+    print(model.evaluate_generator(test_gen))
