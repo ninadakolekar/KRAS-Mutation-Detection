@@ -19,11 +19,20 @@ LABELS = ["kras",'others']
 
 class CellColonySequence(Sequence):
 
-    def __init__(self, path, input_size, batch_size, augmentations):
+    def __init__(self, path, input_size, batch_size, augmentations,mode=None):
 
         random.seed(42)
         
-        labels = {name: index for index in range(len(LABELS)) for name in glob.glob(path + '/' + LABELS[index] + '/*.JPG')}
+        # TEMOPRARY CHANGE
+        def filenames(index):
+            if mode == 'valtest':
+                filenames = glob.glob(path + '/' + LABELS[index] + '/*.JPG')
+            else:
+                filenames = list(glob.glob(path + '/valid/' + LABELS[index] + '/*.JPG')) + list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
+
+            return filenames
+
+        labels = {name: index for index in range(len(LABELS)) for name in filenames(index)}
         l = list(labels.items())
         random.shuffle(l)
         labels = dict(l)
@@ -61,5 +70,5 @@ class CellColonySequence(Sequence):
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = np_utils.to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size],num_classes=2)
-                
+
         return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y))
