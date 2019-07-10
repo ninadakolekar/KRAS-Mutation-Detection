@@ -26,6 +26,8 @@ model = Model(outputs=out,inputs=base_model.input)
 
 model = load_model(sys.argv[1])
 
+print(model.layers)
+
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
 print(f"Metrics: {model.metrics_names}")
