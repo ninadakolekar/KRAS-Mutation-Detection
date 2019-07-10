@@ -31,10 +31,11 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',met
 print(f"Metrics: {model.metrics_names}")
 
 print("=== TRAIN ===")
-# train_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/train",512,1,augmentations=None)
+train_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/train",512,1,augmentations=None)
 # print(model.evaluate_generator(train_gen))
 
 predictions = model.predict_generator(train_gen)
+print(predictions.shape)
 print(predictions)
 exit(0)
 unique, counts = np.unique(predictions, return_counts=True)
@@ -43,7 +44,7 @@ print(dict(zip(unique, counts)))
 del train_gen
 
 print("=== VALIDATION ===")
-# val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
+val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
 # print(model.evaluate_generator(val_gen))
 
 predictions = model.predict_generator(val_gen)
@@ -53,7 +54,7 @@ print(dict(zip(unique, counts)))
 del val_gen
 
 print("=== TEST ===")
-# test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
+test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
 # print(model.evaluate_generator(test_gen))
 
 predictions = model.predict_generator(test_gen)
