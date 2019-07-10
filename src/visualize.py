@@ -20,7 +20,9 @@ base_model = InceptionV3(include_top=False, input_shape=(512,512,3), pooling='av
 x = base_model.output
 x = Dense(32, activation='relu')(x)
 x = Dense(8, activation='relu')(x)
-model = Dense(2, activation='softmax')(x)
+out = Dense(2, activation='softmax')(x)
+
+model = Model(output=out,input=base_model.input)
 
 model.load_weights(sys.argv[1])
 
