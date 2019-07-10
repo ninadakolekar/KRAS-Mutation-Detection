@@ -21,7 +21,7 @@ from tensorflow.keras.applications.resnet50 import ResNet50
 from sklearn.metrics import roc_auc_score
 
 def get_base_model(input_size):
-    return InceptionV3(include_top=True, input_shape=(input_size,input_size,3), pooling='avg', classes=2)
+    return InceptionV3(include_top=False, input_shape=(input_size,input_size,3), pooling='avg', classes=2)
 
 if __name__ == "__main__":
     
