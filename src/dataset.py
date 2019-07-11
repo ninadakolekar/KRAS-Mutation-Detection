@@ -25,7 +25,7 @@ class CellColonySequence(Sequence):
 
         def filenames(index):
             if mode == 'valtest':
-                filenames = list(glob.glob(path + '/valid/' + LABELS[index] + '/*.JPG'))+list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
+                filenames = list(glob.glob(path + '/val/' + LABELS[index] + '/*.JPG'))+list(glob.glob(path + '/test/' + LABELS[index] + '/*.JPG'))
             elif mode=='train':
                 filenames = list(glob.glob(path + '/' + LABELS[index] + '/*.JPG'))
             
