@@ -67,9 +67,5 @@ if __name__ == "__main__":
     # plt.savefig(os.path.join(args.outdir,"loss.png"))
 
     print("=== VALIDATION ===")
-    val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None,mode='valtest')
+    val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data5",512,1,augmentations=None,mode='valtest')
     print(model.evaluate_generator(val_gen))
-
-    print("=== TEST ===")
-    test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None,mode='valtest')
-    print(model.evaluate_generator(test_gen))
