@@ -31,7 +31,7 @@ out = Dense(2, activation='softmax')(x)
 
 model = Model(outputs=out,inputs=base_model.input)
 
-model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-144144/ic_model.h5")
+model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-210507/model.h5")
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
@@ -39,8 +39,8 @@ complete_model = model
 
 layer_outputs = outputs = [layer.output for layer in model.layers][1:]
 
-img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data4/test/others"))
-test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data4/test/others",img_path)
+img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data5/test/others"))
+test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data5/test/others",img_path)
 
 print(f"Name: {test_image}")
 
