@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""Defines training and validation command-line options
+"""
+
 from __future__ import print_function
 import os
 import argparse
@@ -5,7 +9,21 @@ from datetime import datetime
 
 
 class TrainingOptions:
+    '''
+    Defines command-line arguments/options for training and functions to parse them
+
+    An object of this class constructs an argument parser with appropriate options for training of Patch-wise and Image-wise network
+
+    Attributes:
+        _parser: An object of the ArgumentParser class of the argparse module of the Python3 standard library
+    '''
+
     def __init__(self):
+        ''' Initialises the argument parser with appropriate options
+
+        Args:
+            None
+        '''
         parser = argparse.ArgumentParser(description='Classification of morphology in cancer cell-lines')
         parser.add_argument('--dataset-path', type=str, default='./dataset',  help='dataset path (default: ./dataset)')
         parser.add_argument('--checkpoints-path', type=str, default='./checkpoints', help='models are saved here')
@@ -24,6 +42,17 @@ class TrainingOptions:
         self._parser = parser
 
     def parse(self):
+        ''' Parses the arguments from the CLI
+
+        Note:
+            Also sets the GPU settings as mentioned in the CLI arguments
+
+        Args:
+            None
+
+        Returns:
+            dict: A dictionary containing the selected options for the training
+        '''
         opt = self._parser.parse_args()
         os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_ids
 
@@ -43,7 +72,20 @@ class TrainingOptions:
         return opt
 
 class ValidationOptions:
+    '''
+    Defines command-line arguments/options for training and functions to parse them
+
+    An object of this class constructs an argument parser with appropriate options for training of Patch-wise and Image-wise network
+
+    Attributes:
+        _parser: An object of the ArgumentParser class of the argparse module of the Python3 standard library
+    '''
     def __init__(self):
+        ''' Initialises the argument parser with appropriate options
+
+        Args:
+            None
+        '''
         parser = argparse.ArgumentParser(description='Classification of morphology in cancer cell-lines')
         parser.add_argument('--checkpoints-path', type=str, default='./checkpoints', help='Saved model file')
         parser.add_argument('--val-path', type=str, default=None, help='Custom validation set')
@@ -55,6 +97,17 @@ class ValidationOptions:
         self._parser = parser
 
     def parse(self):
+        ''' Parses the arguments from the CLI
+
+        Note:
+            Also sets the GPU settings as mentioned in the CLI arguments
+
+        Args:
+            None
+
+        Returns:
+            dict: A dictionary containing the selected options for the training
+        '''
         opt = self._parser.parse_args()
         os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_ids
 

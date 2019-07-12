@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""Defines data sequence objects to load dataset using Keras generators
+"""
+
 import glob
 import random
 
@@ -18,8 +22,30 @@ from albumentations import (
 LABELS = ["kras",'others']
 
 class CellColonySequence(Sequence):
+    '''
+    Training sequence model class for the cell-colony datatset. An object of this class loads cell-colony data in batches of specified batch-size.
+
+    An object of this class loads and saves model weights for PW and IW network.
+
+    Attributes:
+        path (str): Path to the dataset directory
+        names (list): List of paths to cell-colony images
+        labels (list): List of labels (KRAS/EGFR) corresponding to the `names` attribute
+        input_size (int): Height/Width of the input image
+        batch_size (int): Batch size to be used by the generator
+        augment (`albumentations.Object`): Specifies the augmentations to be applied to the datatset
+    '''
 
     def __init__(self, path, input_size, batch_size, augmentations,mode='train'):
+        '''
+        Initialises the attributes of the class
+
+        Args:
+            path (str): Path to the dataset directory
+            input_size (int): Height/Width of the input image
+            batch_size (int): Batch size to be used
+            augmentations (str): If set to "train", image augmentations are applied
+        '''
 
         random.seed(42)
 
@@ -63,10 +89,29 @@ class CellColonySequence(Sequence):
         self.augment = AUGMENTATIONS_TRAIN if augmentations == 'train' else AUGMENTATIONS_TEST
 
     def __len__(self):
+        '''
+        Computes the number of batches in the dataset generator
+
+        Args:
+            None
+        
+        Returns:
+            Number of batches in the sequence generator (int)
+        '''
 
         return int(np.ceil(len(self.names) / float(self.batch_size)))
 
     def __getitem__(self, idx):
+        '''
+        Fetches the batch of specified index
+
+        Args:
+            idx (int): Index of the batch
+        
+        Returns:
+            Tuple containing `batch_size` number of images and the corresponding labels (tuple(np.array,np.array))
+
+        '''
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = np_utils.to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size],num_classes=2)
@@ -74,8 +119,33 @@ class CellColonySequence(Sequence):
         return (np.stack([self.augment(image=np.array(Image.open(name)))["image"] for name in batch_x], axis=0), np.array(batch_y))
 
 class CellColonyTestSequence(Sequence):
+    '''
+    Test sequence model class for the cell-colony datatset. An object of this class loads cell-colony data in batches of specified batch-size.
+
+    An object of this class loads and saves model weights for PW and IW network.
+
+    Attributes:
+        path (str): Path to the dataset directory
+        names (list): List of paths to cell-colony images
+        labels (list): List of labels (KRAS/EGFR) corresponding to the `names` attribute
+        input_size (int): Height/Width of the input image
+        batch_size (int): Batch size to be used by the generator
+        augment (`albumentations.Object`): Specifies the augmentations to be applied to the datatset
+    '''
 
     def __init__(self, path, input_size, batch_size, augmentations,mode='train'):
+        '''
+        Initialises the attributes of the class
+
+        Args:
+            path (str): Path to the dataset directory
+            input_size (int): Height/Width of the input image
+            batch_size (int): Batch size to be used
+            augmentations (str): If set to "train", image augmentations are applied
+        
+        Returns:
+            None
+        '''
 
         random.seed(42)
 
@@ -110,10 +180,28 @@ class CellColonyTestSequence(Sequence):
         self.augment = AUGMENTATIONS_TRAIN if augmentations == 'train' else AUGMENTATIONS_TEST
 
     def __len__(self):
+        '''
+        Computes the number of batches in the dataset generator
+
+        Args:
+            None
+        
+        Returns:
+            Number of batches in the sequence generator (int)
+        '''
 
         return int(np.ceil(len(self.names) / float(self.batch_size)))
 
     def __getitem__(self, idx):
+        '''
+        Fetches the batch of specified index
+
+        Args:
+            idx (int): Index of the batch
+        
+        Returns:
+            Tuple containing `batch_size` number of images and the corresponding labels (tuple(np.array,np.array))
+        '''
 
         batch_x = self.names[idx * self.batch_size:(idx + 1) * self.batch_size]
         batch_y = np_utils.to_categorical(self.labels[idx * self.batch_size:(idx + 1) * self.batch_size],num_classes=2)

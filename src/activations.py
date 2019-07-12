@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""Computes activations of (specified) convolutional layers on a random input example
+
+Specify the model file in the command-line argument
+Activations will be saved in the same directory as the script
+"""
+
 import os
 import sys
 import random
@@ -21,8 +28,6 @@ import tensorflow.keras.backend as K
 
 random.seed(42)
 
-NUM_LAYERS = int(sys.argv[1])
-
 base_model = InceptionV3(include_top=False, input_shape=(512,512,3), pooling='avg', classes=2)
 x = base_model.output
 x = Dense(32, activation='relu')(x)
@@ -31,7 +36,7 @@ out = Dense(2, activation='softmax')(x)
 
 model = Model(outputs=out,inputs=base_model.input)
 
-model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s512_20190710-210507/model.h5")
+model = load_model(sys.argv[1])
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
@@ -42,7 +47,7 @@ layer_outputs = outputs = [layer.output for layer in model.layers][1:]
 img_path = random.choice(os.listdir("/home/nitish/Desktop/ninad/kras/data/data5/test/kras"))
 test_image = os.path.join("/home/nitish/Desktop/ninad/kras/data/data5/test/kras",img_path)
 
-print(f"Name: {test_image}")
+print(f"Image: {test_image}")
 
 img = image.load_img(test_image, target_size=(512,512,3))
 img_tensor = image.img_to_array(img)
@@ -51,8 +56,6 @@ img_tensor /= 255.
 
 activation_model = Model(inputs=complete_model.input, outputs=layer_outputs)
 activations = activation_model.predict(img_tensor)
-
-print("computed activations")
 
 layer_names = ['conv2d_1', 'activation_1', 'conv2d_4', 'activation_4', 'conv2d_9', 'activation_9']
 activ_list = [activations[1], activations[3], activations[11], activations[13], activations[18], activations[20]]

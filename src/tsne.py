@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""Computes and saves activations of global average pooling layer and the of the InceptionV3 on test and validation sets
+
+A TSV file containing activations and predictions will be saved in the same directory as the script
+"""
+
 import os
 import sys
 import random
@@ -33,35 +39,9 @@ model = load_model("/home/nitish/Desktop/ninad/kras/code/kras-keras-old/output/s
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy,optimizer='adam',metrics=['accuracy'])
 
-# print("=== TRAIN ===")
-# train_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/train",512,1,augmentations=None)
-# print(model.evaluate_generator(train_gen))
-
-# predictions = model.predict_generator(train_gen).argmax(axis=1)
-# unique, counts = np.unique(predictions, return_counts=True)
-# print(dict(zip(unique, counts)))
-
-# del train_gen
-
-# print("=== VALIDATION ===")
 val_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/valid",512,1,augmentations=None)
-# print(model.evaluate_generator(val_gen))
 
-# predictions = model.predict_generator(val_gen).argmax(axis=1)
-# unique, counts = np.unique(predictions, return_counts=True)
-# print(dict(zip(unique, counts)))
-
-# del val_gen
-
-# print("=== TEST ===")
 test_gen = CellColonySequence("/home/nitish/Desktop/ninad/kras/data/data4/test",512,1,augmentations=None)
-# print(model.evaluate_generator(test_gen))
-
-# predictions = model.predict_generator(test_gen).argmax(axis=1)
-# unique, counts = np.unique(predictions, return_counts=True)
-# print(dict(zip(unique, counts)))
-
-# del test_gen
 
 complete_model = model
 
@@ -82,7 +62,3 @@ out = np.argmax(model.predict_generator(val_gen),axis=1)
 
 np.savetxt("val_gen_int.tsv",intermediate_output,delimiter='\t')
 np.savetxt("val_gen_pred.tsv",out,delimiter='\t')
-
-
-
-
