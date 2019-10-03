@@ -26,5 +26,6 @@ The dataset used to train the model was provided by Dr. Daisuke Matsubara, Jichi
 ### Usage
 - To train and validate the model, run `train_valid.py` script under the src/ directory
 - Use `--dataset-path` command-line argument to provide the path to the data folder.
-```
 
+## Acknowledgement
+I'd sincerely like to thank Dr. Daisuke Matsubara for providing the dataset for this project. I'd also like to thank Mr. Tetsuro Matsubara and Mr. Nitish Rajoria of SMS DataTech Corp. for the incredible opprtunity to work on such an exciting project.
