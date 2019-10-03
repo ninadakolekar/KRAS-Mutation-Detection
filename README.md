@@ -3,7 +3,7 @@
 
 This repository is a part of the Mutation Detection project I did during my internship at SMS DataTech Corp., Tokyo, Japan. The objective is to build a classifier that can automatically detect the presence of KRAS Mutation from images of lung carcinoma cell lines.
 
-We use a pre-trained InceptionV3 architecture to 
+KRAS is a type of mutation found in lung cancer tumours. We selected KRAS amongst 40 others, because this particular mutation is amongst the few that are found abundantly in lung-cancer cases in Japan and have no therapy or cure as of today. Using the InceptionV3 architecture, we are able to detect these mutations in the artificially synthesized lung-cancer cell lines with more than 90% accuracy.
 
 ## Prerequisites
 - Linux
